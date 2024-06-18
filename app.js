@@ -3,27 +3,27 @@ const pokequizQuestions = [
     {
         question: 'Which of these is not a Pokemon?',
         options: ['Pikachu', 'Gardevoir', 'Agumon', 'Dratini'],
-        answer: 'Agumon',
+        answer: 'Agumon'
     },
     {
         question: 'What town does Ash start his first journey from?',
         options:['Pallet Town', 'Viridian City', 'Cerulean City', 'New Bark Town'],
-        answer: 'Pallet Town',
+        answer: 'Pallet Town'
     },
     {
         question: 'What is the first Pokemon that Ash ever caught?',
         options:['Charmander', 'Pikachu', 'Caterpie', 'Bulbasaur'],
-        answer: 'Caterpie',
+        answer: 'Caterpie'
     },
     {
         question: 'Who was the first Pokemon ever designed?',
         options:['Charizard', 'Pikachu', 'Squirtle', 'Rhydon'],
-        answer:'',
+        answer: 'Rhydon'
     },
     {
         question:'How many evolutions does Eevee have?',
         options: ['Six', 'Eight', 'Nine', 'Four'],
-        answer: 'Eight',
+        answer: 'Eight'
     },
 ];
 
@@ -31,69 +31,87 @@ const onepieceQuestions = [
     {
         question: 'Who did Luffy recruit first to his Pirate Crew?',
         options: ['Nami', 'Sanji', 'Zoro', 'Brooks'],
-        answer: 'Zoro',
+        answer: 'Zoro'
     },
     {
         question: 'How did Luffy get the the scar under his eye?',
         options: ['Fight with bandit', 'Himself', 'Fight with pirate', 'Fight with crew'],
-        answer: 'Himself',
+        answer: 'Himself'
     },
     {
         question: 'What is the money in Skypia called?',
         options: ['Extol', 'Berry', 'Skydollar', 'Rubys'],
-        answer: 'Extol',
+        answer: 'Extol'
     },
     {
         question: 'Who was the first villain to defeat Luffy?',
         options: ['Arlong', 'Don Krieg', 'Buggy', 'Crocodile'],
-        answer: 'Crocodile',
+        answer: 'Crocodile'
     },
     {
         question: 'Who was the first marine Admiral to be shown in the series?',
         options: ['Aokiji', 'Sengoku', 'Kizaru', 'Akainu'],
-        answer: 'Aokiji',
+        answer: 'Aokiji'
     },
 ]
 
 /*---------- Variables (state) ---------*/
-
+let currentQuestionIndex = 0;
+let score = 0;
+let currentQuiz = [];
 
 /*----- Cached Element References  -----*/
-const pokemonBtnEl = document.querySelector('.btn1');
-const onepieceBtnEl = document.querySelector('.btn2');
-const answerBtnEls = document.querySelectorAll('.answer');
-const tryAgainBtnEl = document.querySelector('.display');
+const pokemonBtn = document.getElementById('btn-pokemon');
+const onepieceBtn = document.getElementById('btn-onepiece');
+const tryAgainBtn = document.getElementById('btn-try-again');
+const messageEl = document.getElementById('message');
+const quizQuestionEl = document.getElementById('quiz-question');
+const optionsContainerEl = document.getElementById('options-container');
 
-/*-------------- Functions -------------*/
-// Function for Category Selection 
-// Function for answer choice
-// Function for try again 
-// Function for Winner
-// Function for Loser!
+pokemonBtn.onclick = () => startQuiz(pokequizQuestions);
+onepieceBtn.onclick = () => startQuiz(onepieceQuestions);
+tryAgainBtn.onclick = resetQuiz;
 
-function  showpmQuestions () {
-    pokemonBtnEl.style.display = 'none';
-    onepieceBtnEl.style.display = 'none';
-    
+function startQuiz(quizQuestions) {
+    currentQuiz = quizQuestions;
+    currentQuestionIndex = 0;
+    score = 0;
+    pokemonBtn.style.display = 'none';
+    onepieceBtn.style.display = 'none';
+    render();
 };
 
+function render() {
+    if (currentQuestionIndex < currentQuiz.length) {
+        const questionData = currentQuiz[currentQuestionIndex];
+        quizQuestionEl.textContent = questionData.question;
+        optionsContainerEl.innerHTML = questionData.options.map(option => 
+            `<button class="btn" onclick="handleClick('${option}', '${questionData.answer}')">${option}</button>`).join('');
+    } else {
+        endQuiz();
+    }
+}
 
+function handleClick(selectedOption, correctAnswer) {
+    if (selectedOption === correctAnswer) score++;
+    currentQuestionIndex++;
+    render();
+};
 
-// const updatetoPMquestions = 
+function endQuiz() {
+    if(score >= 4){
+        messageEl.textContent = 'Congrats! You have won! Your knwoledge on Anime is amazing!'
+    } else {
+        messageEl.textContent = 'You lost! Try again to test your knowledge once more!'
+    }
+    tryAgainBtn.style.display = 'block';
+};
 
-// const updatequestions = 
-
-/*----------- Event Listeners ----------*/
-pokemonBtnEl.addEventListener('click', showpmQuestions);
-
-// onepieceBtnEl.addEventListener('click' showopquestions);
-
-// const answerBtnEls.forEach((answerBtnEl) => {
-//     answerBtnEl.addEventListener('click', updatequestions)
-// });
-
-// Event listener for Category choice at Landing page.
-// Event listener for answer choice for each question. 
-// Event Listener for try again at the end of quiz. 
-
-// console.log('Wussup!')
+function resetQuiz() {
+    tryAgainBtn.style.display = 'none';
+    messageEl.textContent = 'Test your knowledge!';
+    quizQuestionEl.textContent = '';
+    optionsContainerEl.innerHTML = '';
+    pokemonBtn.style.display = 'block';
+    onepieceBtn.style.display = 'block';
+};

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Poke-Piece Quiz!</title>
     <link rel="stylesheet" href="./style.css">
     <script defer src="./app.js"></script>
 </head>
@@ -12,20 +12,19 @@
     <h2 id="message">Test your knowledge!</h2>
 
     <div class="container">
-        <img src="https://sm.ign.com/t/ign_in/screenshot/default/pokemon-one-piece_bv2v.1280.jpg" alt="Pokemon&OnePiece"
-        width="800px"
-        height="600px"
-        >
-        <button class="btn1">Pokemon</button>
-        <button class="btn2">One Piece</button>
-    </div>
-        <div class="row">
-            <button class="answer">1</div>
-            <button class="answer">2</div>
-            <button class="answer">3</div>
-            <button class="answer">4</div>
-            <button class="answer">Try Again!</div>
+        <div id="question-container">
+            <h3 id="quiz-question"></h3>
+            <div id="options-container"></div>
         </div>
+        <img src="https://sportshub.cbsistatic.com/i/2023/03/01/e1dabbea-625a-4c0b-b9a7-3e5f1d5378cf/imageedit-17-3794788508.jpg" alt="Pokemon&OnePiece"
+        width="800px"
+        height="600px">
+        <button class="btn" id="btn-pokemon">Pokemon</button>
+        <button class="btn" id="btn-onepiece">One Piece</button>
+    </div>
+    <div>
+        <button class="btn" id="btn-try-again" style="display: none;">Try Again!</button>
+    </div>
     </section>
   </body>
 </html>
