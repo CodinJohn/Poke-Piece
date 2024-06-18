@@ -1,4 +1,3 @@
-/*-------------- Constants -------------*/
 const pokequizQuestions = [
     {
         question: 'Which of these is not a Pokemon?',
@@ -55,12 +54,10 @@ const onepieceQuestions = [
     },
 ]
 
-/*---------- Variables (state) ---------*/
 let currentQuestionIndex = 0;
 let score = 0;
 let currentQuiz = [];
 
-/*----- Cached Element References  -----*/
 const pokemonBtn = document.getElementById('btn-pokemon');
 const onepieceBtn = document.getElementById('btn-onepiece');
 const tryAgainBtn = document.getElementById('btn-try-again');
